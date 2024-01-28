@@ -59,38 +59,26 @@ The analysis was conducted as follows:
 
 1. **Data cleaning and pre-processing**
 
-	 a) Removal of unnecessary columns, duplicate rows, missing data
-
-	 b) Processing raw text from the title and text of each article with the aim of later converting the text into numerical data that can be processed by machine learning algorithms. This included: 
- 	  - i) Tokenizing text which splits the raw text into a vector of separate words and punctuation.
-	  - ii) Removal of common stop words and punctuation.
-	  - iii) Lemmatization of words (reducing words down to their base/root stems to remove some noise).
-        
-     c) Creating a clean final dataset to be processed by machine learning techniques consisting of:
-   
-      - i) X matrix: contained 2 columns, the the post-processed 'Title' and 'Text' entries  for each article.  Only text or title was used for modelling due to processing constraints, but both were processed to allow flexibility for testing each of the models.
-       
-      - ii) y matrix: contained the classification for each article (0 - Real, 1 - Fake).       
-
-     d)  Splitting the data into train and testing sets using a 75/25 default split.
-   
-      - This is done to allow preliminary cross-validation and evaluation of a model.  The model is trained on the training dataset, and then fit to the previously unseen test data.  If the model is not overfit and performs well on unseen data, it is more likely to be able to generalize to new unseen data.
+	- a) Removal of unnecessary columns, duplicate rows, missing data
+	- b) Processing raw text from the title and text of each article with the aim of later converting the text into numerical data that can be processed by machine learning algorithms. This included:
+ 		- i) Tokenizing text which splits the raw text into a vector of separate words and punctuation.
+    		- ii) Removal of common stop words and punctuation.
+      	 	- iii) Lemmatization of words (reducing words down to their base/root stems to remove some noise).
+   	- c) Creating a clean final dataset to be processed by machine learning techniques consisting of:
+   		- i) X matrix: contained 2 columns, the the post-processed 'Title' and 'Text' entries  for each article.  Only text or title was used for modelling due to processing constraints, but both were processed to allow flexibility for testing each of the models.
+   	 	- ii) y matrix: contained the classification for each article (0 - Real, 1 - Fake).       
+	- d)  Splitting the data into train and testing sets using a 75/25 default split.
+		- This is done to allow preliminary cross-validation and evaluation of a model.  The model is trained on the training dataset, and then fit to the previously unseen test data.  If the model is not overfit and performs well on unseen data, it is more likely to be able to generalize to new unseen data.
 
 3. **Exploratory data analysis**
 
-    a) Visualizing distributions of word and character counts for title and text.
-
-    b) Summarizing and visualizing most frequently occuring words for each class (Fake, Real).
-
-    c) Visualizing the distribution of class in the data.
-
-      - i) The dataset was slightly imbalanced, with an approximate 55/45% split between Real/Fake news.
-
-    d) Calculation of a baseline model
-
-      - i) Given that this is a binary classification where the task is to choose between two classes, the baseline model is set to classifying everything as the Majority Class.  This means that the model guesses everything is Real news, which gives 55% accuracy on our existing dataset.  
-
-      - ii) Our machine learning models should have better accuracy than this baseline.
+	- a) Visualizing distributions of word and character counts for title and text.
+ 	- b) Summarizing and visualizing most frequently occuring words for each class (Fake, Real).
+	- c) Visualizing the distribution of class in the data.
+ 		- i) The dataset was slightly imbalanced, with an approximate 55/45% split between Real/Fake news.
+   	- d) Calculation of a baseline model
+		- i) Given that this is a binary classification where the task is to choose between two classes, the baseline model is set to classifying everything as the Majority Class.  This means that the model guesses everything is Real news, which gives 55% accuracy on our existing dataset.  
+		- ii) Our machine learning models should have better accuracy than this baseline.
 
 5. **Selecting best metrics to evaluate best performing model**
    
@@ -99,30 +87,28 @@ The analysis was conducted as follows:
     In this context, there is a high societal cost to both:
 
      - a) False positives - incorrectly identifying real news as fake (undermines legitimate news sources and spreads distrust).
- 	 - b) False negatives - incorrectly identifying fake news as real (further spreads misinformation and unnecessary hysteria).
+     - b) False negatives - incorrectly identifying fake news as real (further spreads misinformation and unnecessary hysteria).
     
     As such, the F1 score was chosen as the best indicator of model performance:
     
 	- The F1 score is the harmonic mean between precision and recall:
-    	- It is calculated as 2 x (Precision x Recall) / (Precision + Recall)
+    		- It is calculated as 2 x (Precision x Recall) / (Precision + Recall)
 		 
     - Precision is:  	 
 	    - "Of all the samples that were labelled as Fake news, how many were actually Fake?"
-        - It is calculated as (True Positives (TP)) / (True Positives (TP) + False Positives (FP))
-        
-		- If there is a high False Positive rate (Real news incorrectly labelled as Fake), precision will be low.
+        	- It is calculated as (True Positives (TP)) / (True Positives (TP) + False Positives (FP))
+          	- If there is a high False Positive rate (Real news incorrectly labelled as Fake), precision will be low.
+       
+    - Recall is:  	 
+	    - "Of all actual Fake news in the sample, how many did the model correctly identify?"
+        	- It is calculated as (True Positives (TP)) / (True Positives (TP) + False Negatives (FN))
+          	- If there is a high False Negative rate (Fake news incorrectly labelled as Real), recall will be low.
 
-    - Recall is:
-        - "Of all actual Fake news in the sample, how many did the model correctly identify?"
-        - It is calculated as (True Positives (TP)) / (True Positives (TP) + False Negatives (FN))
-        
-		- If there is a high False Negative rate (Fake news incorrectly labelled as Real), recall will be low.
-
-  	The F1 score can only be high if there is high precision and high recall              
-    - Thus it is a good metric to maximize when the cost of False Negative and False Positives is high, which is true for our problem.
-    - In our case, we consider the best performing model to be the one that has an **F1 score as close as possible to 1**, as this minimizes the risk of both False Positives and False Negatives.      
+    The F1 score can only be high if there is high precision and high recall.
+   	- Thus it is a good metric to maximize when the cost of False Negative and False Positives is high, which is true for our problem.
+   	- In our case, we consider the best performing model to be the one that has an **F1 score as close as possible to 1**, as this minimizes the risk of both False Positives and False Negatives.      
                 
-   Another metric that was measured and recorded for future tuning of the models was the PR-AUC value (Precision-Recall Area Under Curve)
+   Another metric that was measured and recorded for future tuning of the models was the PR-AUC value (Precision-Recall Area Under Curve).
    - This shows us the trade-off between precision and recall at different thresholds.
    - If we wanted to do further analysis or model tuning to change the threshold, then a higher PR-AUC score means we will be more likely to maintain a high F1 with a different threshold.
    - The curve also visualizes the what the recall and precision rates are at each threshold, which can be used to pick a threshold that provides a more desirable recall and precision rate.      
@@ -156,29 +142,20 @@ The analysis was conducted as follows:
     The four models and associated hyperparameters selected for this binary classification task are:
 
 	- i) Naive Bayes
-
-     	- Alpha: (0, 0.0001, 0.001, 0.01, 0.1, 1)
+	     	- Alpha: (0, 0.0001, 0.001, 0.01, 0.1, 1)
    
 	- ii) Decision Tree
-
-		- Minimum Impurity Decrease (0.01, 0.02, 0.03, 0.05)
-        
-		- Criterion ('gini', 'entropy')
-        
-		- Max Depth (1,2,3,4)
-        
+		- Minimum Impurity Decrease (0.01, 0.02, 0.03, 0.05)      
+		- Criterion ('gini', 'entropy')        
+		- Max Depth (1,2,3,4)        
 		- Min Samples Split (1,2,3,4)
        
-	- iii) Logistic Regression
-        
-		- Fit Intercept (True, False)
-        
-		- Class Weight (None, Balanced)
-        
+	- iii) Logistic Regression        
+		- Fit Intercept (True, False)        
+		- Class Weight (None, Balanced)        
 		- Penalty (None, L1, L2)
        
-	- iv) Support Vector Classification (SVC)   
-        
+	- iv) Support Vector Classification (SVC)          
 		- C value (0.1, 1, 100)
 
 
@@ -188,36 +165,20 @@ The analysis was conducted as follows:
     
 	The method to complete this was as such:
     
-    - a) Pre-process text as required for processing in neural networking models
-
-   	 	- i) Tokenize the text using Tensorflow
-
-     	- ii) Pad the text so that all samples are the same length
-
-     	- iii) Convert text to numerical vectors using Tensorflow Embedding function
+- a) Pre-process text as required for processing in neural networking models
+	- i) Tokenize the text using Tensorflow
+	- ii) Pad the text so that all samples are the same length
+   	- iii) Convert text to numerical vectors using Tensorflow Embedding function
     
-	- b) Create a Recurrent Neural Network (RNN) model using the Long Short-Term Memory (LSTM) architecture.
-
-    	- This was chosen for its ability to complete natural language processing (NLP), in order to detect patterns and nuances in large bodies of text, as required with our dataset. 
+- b) Create a Recurrent Neural Network (RNN) model using the Long Short-Term Memory (LSTM) architecture.
+	- This was chosen for its ability to complete natural language processing (NLP), in order to detect patterns and nuances in large bodies of text, as required with our dataset. 
         - Due to processor limitations, a fairly simple model base was chosen with:
-
-          - i) 1 embedding layer to vectorize text data
-
-          - ii) 1 LSTM hidden layer to analyse patterns
-
-          - iii) 1 dense output layer with sigmoid activation
-
-          - iv) The model was built with the following parameters:
-
-               - Optimizing algorithm called 'Adam'
-               
-					- This controls how quickly the neural network learns at each step, to help it converge to the correct answer as quickly as possible.  
-                    
-			   - Minimize the binary cross-entropy loss
-
-                   - The is a setting commonly used for binary classification task
-
-                   - It represents a logarithmic distance of the model output from the two classes (0 and 1).  The smaller the distance of each point, the more accurate the model is at correctly predicting the sample's class.
+        	- i) 1 embedding layer to vectorize text data
+         	- ii) 1 LSTM hidden layer to analyse patterns
+	        - iii) 1 dense output layer with sigmoid activation
+		- iv) The model was built with the following parameters:
+  			- Optimizing algorithm called 'Adam': This controls how quickly the neural network learns at each step, to help it converge to the correct answer as quickly as possible.  
+			- Minimize the binary cross-entropy loss: This a setting commonly used for binary classification task.  It represents the logarithmic distance of the model output from the two classes (0 and 1).  The smaller the distance of each point, the more accurate the model is at correctly predicting the sample's class.
     
 - c) Cross-validation and tuning of the model hyperparameters using GridSearchCV
 	- Due to processor limitations, only the number of neurons and epochs in the LSTM layer were trialed.
