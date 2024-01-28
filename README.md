@@ -10,7 +10,7 @@ The goal of this project is to create a model that accurately classifies news as
 
 **Findings**
 
-The best model for correctly classifying news was a recurrent neural network (RNN) model, with an accuracy of 0.888, F1 score of 0.874, recall of 0.843, precision of 0.907 and PR-AUC of 0.953 on unseen test data.  This was trained on a dataset of 750 text samples that were classified as 0 (Real) or 1 (Fake).  The scores mean that model on the 250 new test samples, the model correctly classified 88.8% of samples, with 10 False Positives (Real news incorrectly identified as Fake) and 18 False Negatives (Fake news incorrectly identified as Real).
+The best model for correctly classifying news was a recurrent neural network (RNN) model, with an accuracy of 0.872, F1 score of 0.868, recall of 0.913, precision of 0.827 and PR-AUC of 0.954 on unseen test data.  This was trained on a dataset of 750 text samples that were classified as 0 (Real) or 1 (Fake).  The scores mean that model on the 250 new test samples, the model correctly classified 87.2% of samples, with 22 False Positives (Real news incorrectly identified as Fake) and 10 False Negatives (Fake news incorrectly identified as Real).  Note that due to the inherent nature of neural networks, the results in the jupyter notebook change slightly each time it is run, however the RNN model still far outperforms the other models each time.
 
 This model was chosen as the best performing due to having the highest F1 score on test data out of all the models tested.  F1 score was chosen as being the most important in this dataset that was slightly unbalanced (with an approximately 55/45% split between Real and Fake news) as it indicates the best balance of correctly identifying both classes correctly.  This is desirable given that there is a high societal cost to both:
 - a) False Positives - incorrectly identifying real news as fake (undermines legitimate news sources and spreads distrust).
@@ -197,19 +197,19 @@ The analysis was conducted as follows:
 
 This model performed the best compared to the non neural models for correctly classifying news as Fake or Real.  Note that due to the inherent nature of neural networks, the results in the jupyter notebook change slightly each time it is run, however the RNN model still far outperforms the other models each time.
 
-During this run, the best model was the RNN with an F1 score of 0.874.
-Its optimal hyperparameters were 5 epochs and 32 neurons. 
-On the test data, it achieved 0.888 accuracy, 0.843 recall, 0.907 precision and 0.953 PR-AUC.
+During this run, the best model was the RNN with an F1 score of 0.868.
+Its optimal hyperparameters were 10 epochs and 16 neurons. 
+On the test data, it achieved 0.872 accuracy, 0.913 recall, 0.827 precision and 0.954 PR-AUC.
 
 Of the non-neural models, Logistic Regression performed the best with an F1 score of 0.775.
 
 Below is a summary of how each F1 score affected the actual False Positives (Real news incorrectly identified as fake) and False Negatives (Fake news incorrectly identified as Real) by each model out of the test dataset of 250 samples:
 
 - RNN model
-    - F1 Score: 0.874
-    - False Positives: 10
-    - False Negatives: 18
-    - Total incorrect classifications: 28 (11.2%)
+    - F1 Score: 0.868
+    - False Positives: 22
+    - False Negatives: 10
+    - Total incorrect classifications: 32 (12.8%)
 
 - Logistic Regression model
     - F1 Score: 0.775
