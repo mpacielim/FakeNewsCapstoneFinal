@@ -288,10 +288,10 @@ This was also attempted during the project but dropped due to computer processin
 ### Outline of project
 
 - [Link to Final Technical Report](https://github.com/mpacielim/FakeNewsCapstoneFinal/blob/976824efafc3056b2466e10a85fd07755fe2f589/Fake%20News%20Capstone%20Technical%20Report.ipynb)
-- [Link to dataset](https://github.com/mpacielim/FakeNewsCapstoneFinal/tree/main/data)
-- [Link to original kaggle dataset](https://www.kaggle.com/datasets/saurabhshahane/fake-news-classification/data)
-- Note that the dataset linked above was above the maximum 100 MB file size upload allowed by github, hence the github large file storage (LFS) system was used [link](https://git-lfs.com/)
-	- The .gitattributes file in this repository was required to upload the dataset through the github LFS platform
+- [Link to Raw Fake News Dataset](https://github.com/mpacielim/FakeNewsCapstoneFinal/tree/main/data)
+- [Link to Raw Fake News Dataset Original Location in Kaggle](https://www.kaggle.com/datasets/saurabhshahane/fake-news-classification/data)
+- Note that the dataset linked above was above the maximum 100 MB file size upload allowed by github, hence the [github large file storage (LFS) system](https://git-lfs.com/) was used.
+	- The .gitattributes file in this repository was required to upload the dataset through the github LFS platform.
 
 
 ##### Contact and Further Information
